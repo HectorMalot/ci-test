@@ -3,14 +3,14 @@ pipeline {
   stages {
     stage('Unit Testing') {
       steps {
-        sh 'rspec spec'
+        sleep 5
       }
     }
     stage('Integration testing') {
       steps {
         parallel(
           "Integration testing": {
-            sh 'rake cucumber'
+            sleep 5
             
           },
           "Firefox": {
@@ -18,7 +18,7 @@ pipeline {
             
           },
           "Chrome": {
-            sleep 10
+            sleep 15
             
           }
         )
@@ -26,7 +26,9 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'git push heroku master'
+        echo 'Deploying app'
+        sleep 5
+        echo 'Deployed!'
       }
     }
   }
